@@ -19,42 +19,41 @@ def toposort(adj):
    
     for j in range(0,len(adj)):
        a.append(0)
-       track_child.append(0)
+       track_child.append(0)  # use this to track number of child left to visit
  
     for j in range(0,len(adj)):
-       if a[j]:
+       if a[j]:               # use this to track previously visited nodes
         
          continue 
 
        stack.append(j)
        current_element = j
-       #print(current_element)
        k = 0
        revisit = 0
        while(len(stack) > 0):
-            if revisit == 0:   
+            if revisit == 0:  # as long as revisit = 0, will keep penetrating 
                
-               if (len(adj[current_element])) == 0 or (a[current_element] == 1):
-                 revisit = 1
+               if (len(adj[current_element])) == 0 or (a[current_element] == 1): # if there is no child beyond the current, will print and go back to previous
+                 revisit = 1                                                     # this can happen either if no child left or reach at previously visited node
                  if (a[current_element] == 0):
-                    temp.append(current_element)
+                    temp.append(current_element) # 'temp' is used to print the final output 
                     a[current_element] = 1
          
-                 stack.pop()
+                 stack.pop()                     # stack was used to have a list of nodes to visit afterwards...once finished visiting the node, it is removed
                if revisit ==0:
                  track_child[current_element] = len(adj[current_element]) - 1
                  current_element = adj[current_element][0]
                  stack.append(current_element)
             if revisit == 1 and len(stack)> 0:
                current_element = stack.pop()
-               if track_child[current_element] > 0:
+               if track_child[current_element] > 0: # if still children left for a node...it will be tried 
                  revisit = 0
                  stack.append(current_element)
                  track_child[current_element] -= 1
                  current_element = adj[current_element][track_child[current_element]+1]
                  stack.append(current_element)
              
-               if revisit == 1:
+               if revisit == 1:                     # if no child left...that node is printed
                  temp.append(current_element)
                  a[current_element] = 1
                  
@@ -64,7 +63,7 @@ def toposort(adj):
                     
             
     temp.reverse()             
-    #order = temp
+    
     return temp
 
 if __name__ == '__main__':
