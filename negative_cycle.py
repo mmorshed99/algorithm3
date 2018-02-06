@@ -1,3 +1,5 @@
+#Task. Given an directed graph with possibly negative edge weights and with n vertices and m edges, 
+#check whether it contains a cycle of negative weight.
 #Uses python3
 
 import sys
